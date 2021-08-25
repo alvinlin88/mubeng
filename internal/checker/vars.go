@@ -10,5 +10,5 @@ var (
 	myip   myIP
 	wg     sync.WaitGroup
 
-	endpoint = "https://api.myip.com/"
+	endpoint = "https://www.walmart.com/ip/lol/790390437"
 )

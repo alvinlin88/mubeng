@@ -1,9 +1,7 @@
 package checker
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"time"
 
@@ -14,8 +12,8 @@ import (
 
 // Do checks proxy from list.
 //
-// Displays proxies that have died if verbose mode is enabled,
-// or save live proxies into user defined files.
+// Displays proxies.txt that have died if verbose mode is enabled,
+// or save live proxies.txt into user defined files.
 func Do(opt *common.Options) {
 	for _, proxy := range opt.ProxyManager.Proxies {
 		wg.Add(1)
@@ -66,13 +64,7 @@ func check(address string, timeout time.Duration) (string, error) {
 		return "", err
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
-	}
-
-	err = json.Unmarshal([]byte(body), &myip)
-	if err != nil {
+	if resp.Status != "200" {
 		return "", err
 	}
 
